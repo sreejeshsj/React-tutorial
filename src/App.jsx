@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Navbar from './Navbar'
 import Course from './Course'
-
+import Footer from './footer'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -10,6 +10,7 @@ function App() {
     <>
      <Navbar/>
      <Course/>
+     <Footer/>
     </>
   )
 }
