@@ -8,26 +8,28 @@ function CourseList() {
   const courselist = [
     {
       name: "HTML",
-      price: "$199",
+      price: 199,
       rating: 9,
       image: HTML,
     },
     {
       name: "CSS",
-      price: "$199",
+      price: 199,
       rating: 9,
       image: CSS,
     },
     {
       name: "JS",
-      price: "$199",
+      price: 499,
       rating: 9,
       image: JS,
     },
   ];
-
-  const course = courselist.map((item) => (
-    <Course
+  courselist.sort((a,b)=> b.price-a.price)
+  const last=courselist.filter((item)=> item.price < 200)
+  const course = last.map((item,index) => (
+    <Course 
+      key={index}
       name={item.name}
       price={item.price}
       image={item.image}
