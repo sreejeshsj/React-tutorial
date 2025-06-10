@@ -36,17 +36,21 @@ function CourseList() {
   
   //if use ,[] empty array useEffect will call only once when we starting the web app 
   useEffect(()=>{
-    console.log('useEffect Activated')
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(response=>{
+      console.log(response)
+      return response.json()
+    }).then(data=>{console.log(data)})
   },[])
 
   // if set [any state] inside the list then it work only for that particular state variable
-  useEffect(()=>{
-    console.log('useEffect Activated')
-  },[courselist])
+  // useEffect(()=>{
+  //   console.log('useEffect Activated')
+  // },[courselist])
  // if does not provide the second variable then it going work for all state changeb edh
-  useEffect(()=>{
-    console.log('useEffect Activated')
-  })
+  // useEffect(()=>{
+  //   console.log('useEffect Activated')
+  // })
   const course = courselist.map((item, index) => (
     <Course
       key={index}
