@@ -1,33 +1,9 @@
 import React, { useEffect, useState } from "react";
-import HTML from "./assets/html.png";
-import CSS from "./assets/css.jpg";
-import JS from "./assets/js.jpg";
+
 import Course from "./course/Course";
 
 function CourseList() {
-  const [courselist, setCourse] = useState([
-    {
-      id: 1,
-      name: "HTML",
-      price: 199,
-      rating: 9,
-      image: HTML,
-    },
-    {
-      id: 2,
-      name: "CSS",
-      price: 199,
-      rating: 9,
-      image: CSS,
-    },
-    {
-      id: 3,
-      name: "JS",
-      price: 499,
-      rating: 9,
-      image: JS,
-    },
-  ]);
+  const [courselist, setCourse] = useState(null);
 
   function handleDelete(id) {
     const newCourses = courselist.filter((item) => item.id != id);
@@ -36,11 +12,11 @@ function CourseList() {
   
   //if use ,[] empty array useEffect will call only once when we starting the web app 
   useEffect(()=>{
-    fetch('https://jsonplaceholder.typicode.com/posts')
+    fetch('http://localhost:3000/courses')
     .then(response=>{
       console.log(response)
       return response.json()
-    }).then(data=>{console.log(data)})
+    }).then(data=>{setCourse(data)})
   },[])
 
   // if set [any state] inside the list then it work only for that particular state variable
@@ -51,6 +27,9 @@ function CourseList() {
   // useEffect(()=>{
   //   console.log('useEffect Activated')
   // })
+  if (!courselist){
+    return (<></>)
+  }
   const course = courselist.map((item, index) => (
     <Course
       key={index}
