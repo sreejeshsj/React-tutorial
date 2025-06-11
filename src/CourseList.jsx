@@ -4,7 +4,7 @@ import Course from "./course/Course";
 
 function CourseList() {
   const [courselist, setCourse] = useState(null);
-
+  const [error,setError] = useState(null)
   function handleDelete(id) {
     const newCourses = courselist.filter((item) => item.id != id);
     setCourse(newCourses);
@@ -12,24 +12,24 @@ function CourseList() {
   
   //if use ,[] empty array useEffect will call only once when we starting the web app 
   useEffect(()=>{
-    fetch('http://localhost:3000/courses')
+    fetch('http://localhost:3000/ourses')
     .then(response=>{
       console.log(response)
+      if (!response.ok){
+        throw Error("Couldn't retrive data")
+      }
       return response.json()
-    }).then(data=>{setCourse(data)})
+    }).then(data=>{setCourse(data)}).catch((error)=>{
+      console.log(error.message)
+      setError(error.message)
+    })
   },[])
 
-  // if set [any state] inside the list then it work only for that particular state variable
-  // useEffect(()=>{
-  //   console.log('useEffect Activated')
-  // },[courselist])
- // if does not provide the second variable then it going work for all state changeb edh
-  // useEffect(()=>{
-  //   console.log('useEffect Activated')
-  // })
   if (!courselist){
-    return (<></>)
-  }
+  return <h2>{error}</h2>;
+}
+
+ 
   const course = courselist.map((item, index) => (
     <Course
       key={index}
