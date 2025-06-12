@@ -1,35 +1,26 @@
 import React, { useEffect, useState } from "react";
 
 import Course from "./course/Course";
+import useFetch from "./useFetch";
 
 function CourseList() {
-  const [courselist, setCourse] = useState(null);
-  const [error,setError] = useState(null)
+  const [courselist, error, setData] = useFetch(
+    "http://localhost:3000/courses"
+  );
+
   function handleDelete(id) {
     const newCourses = courselist.filter((item) => item.id != id);
-    setCourse(newCourses);
+    setData(newCourses);
   }
-  
-  //if use ,[] empty array useEffect will call only once when we starting the web app 
-  useEffect(()=>{
-    fetch('http://localhost:3000/ourses')
-    .then(response=>{
-      console.log(response)
-      if (!response.ok){
-        throw Error("Couldn't retrive data")
-      }
-      return response.json()
-    }).then(data=>{setCourse(data)}).catch((error)=>{
-      console.log(error.message)
-      setError(error.message)
-    })
-  },[])
 
-  if (!courselist){
-  return <h2>{error}</h2>;
-}
+  if (!courselist) {
+    return error ? (
+      <p>{error}</p>
+    ) : (
+      <img src="data/assets/22.gif" alt="loading" />
+    );
+  }
 
- 
   const course = courselist.map((item, index) => (
     <Course
       key={index}

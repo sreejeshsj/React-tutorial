@@ -1,17 +1,12 @@
-import { useState } from 'react'
-import './App.css'
-import CourseList from './CourseList'
+import { useState } from "react";
+import "./App.css";
+import CourseList from "./CourseList";
 function App() {
-  
-
   return (
     <>
-     
       <CourseList />
-     
-     
     </>
-  )
+  );
 }
 
-export default App
+export default App;
