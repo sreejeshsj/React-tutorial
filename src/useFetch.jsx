@@ -4,8 +4,10 @@ const useFetch = (url) => {
   const [data, setData] = useState("");
   const [error, setError] = useState("");
   useEffect(() => {
+    const controller=new AbortController()
+    const signal=controller.signal
     setTimeout(() => {
-      fetch(url)
+      fetch(url,{signal})
         .then((response) => {
           console.log(response);
           if (!response.ok) {
@@ -21,6 +23,11 @@ const useFetch = (url) => {
           setError(error.message);
         });
     }, 4000);
+
+    return()=>{
+     console.log("Unmounted")
+     controller.abort()
+    }
   }, []);
 
   return [data, error, setData];
