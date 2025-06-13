@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Counter from "./Counter";
 
 function Login() {
   const [email,setEmail]=useState('')
@@ -19,6 +20,7 @@ function Login() {
   }
   return (
     <div>
+      <Counter/>
       <form className="my-5" style={{width:"50%" , margin:"auto"}} onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Email address</label>
